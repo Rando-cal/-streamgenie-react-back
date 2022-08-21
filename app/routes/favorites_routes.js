@@ -56,23 +56,18 @@ router.post('/favorites', requireToken, (req, res, next) => {
 })
 
 // UPDATE IS BOTH ADD AND DELETE CONTENT FROM LIST
+
+//UPDATE TO ADD TO FAVORITES
 // PATCH /favorites/:id
-router.patch('/favorites/:id', requireToken, removeBlanks, (req, res, next) => {
-    // if the client attempts to change the `owner` property by including a new
-    // owner, prevent that by deleting that key/value pair
-    delete req.body.favorites.owner
-    Favorites.findById(req.params.id)
+router.patch('/favorites/add', requireToken, (req, res, next) => {
+    Favorites.findOne({ owner: req.user.id })
         .then(handle404)
         .then((favorites) => {
-            // pass the `req` object and the Mongoose record to `requireOwnership`
-            // it will throw an error if the current user isn't the owner
-            // requireOwnership(req, item)
+            favorites.content.push(req.body.content)
+            favorites.save
 
-            // pass the result of Mongoose's `.update` to the next `.then`
-            return item.updateOne(req.body.item)
         })
-        // if that succeeded, return 204 and no JSON
         .then(() => res.sendStatus(204))
-        // if an error occurs, pass it to the handler
         .catch(next)
 })
+
