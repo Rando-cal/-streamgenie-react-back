@@ -71,3 +71,14 @@ router.patch('/favorites/add', requireToken, (req, res, next) => {
         .catch(next)
 })
 
+//UPDATE TO REMOVE FROM FAVORITES LIST
+router.patch('/favorites/remove/:id', requireToken, removeBlanks, (req, res, next) => {
+    // delete req.body.cart.owner
+
+    Favorites.findOneAndUpdate({ owner: req.user.id }, { "$pull": { "content": { "_id": req.params.id } } })
+        .then(handle404)
+        // if that succeeded, return 204 and no JSON
+        .then(() => res.sendStatus(204))
+        // if an error occurs, pass it to the handler
+        .catch(next)
+})

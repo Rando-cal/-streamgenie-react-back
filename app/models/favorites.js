@@ -4,7 +4,7 @@ const favoritesSchema = new mongoose.Schema(
     {
         content: [
             {
-                id: Number,
+                contentId: Number,
                 title: String,
                 img: String,
                 year: Number,
