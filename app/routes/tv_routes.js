@@ -25,10 +25,21 @@ const router = express.Router()
 
 
 //INDEX
-// GET /movies
+// GET /tv
 router.get('/tv(/:region)', (req, res, next) => {
     //fetch top 20 most popular shows from API
     fetch(`https://api.themoviedb.org/3/discover/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&watch_region=${req.params.region}`)
+        .then(handle404)
+        .then((shows) =>
+            res.status(201).json({ shows: shows.toObject() }))
+        .catch(next)
+})
+
+//INDEX BY STREAMING PLATFORM
+// GET /tv
+router.get('/tv/:id/:region', (req, res, next) => {
+    //fetch top 20 most popular shows from API on specified platform
+    fetch(`https://api.themoviedb.org/3/discover/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&watch_region=${req.params.region}&with_watch_providers=${req.params.id}`)
         .then(handle404)
         .then((shows) =>
             res.status(201).json({ shows: shows.toObject() }))
