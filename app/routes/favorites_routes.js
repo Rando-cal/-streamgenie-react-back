@@ -60,15 +60,20 @@ router.post('/favorites', requireToken, (req, res, next) => {
 //UPDATE TO ADD TO FAVORITES
 // PATCH /favorites/:id
 router.patch('/favorites/add', requireToken, (req, res, next) => {
-    Favorites.findOne({ owner: req.user.id })
-        .then(handle404)
-        .then((favorites) => {
+    Favorites.findOne({ owner: req.user.id }, async function (error, favorites) {
+        //check if user has a favorites list already
+        //if they do, push to that content array in the list
+        if (favorites) {
             favorites.content.push(req.body.content)
-            favorites.save
-
-        })
-        .then(() => res.sendStatus(204))
-        .catch(next)
+            await favorites.save()
+            //otherwise, create a new favorites list and then push content
+        } else {
+            const newFavorites = new Favorite()
+            newFavorites.owner = req.user.id
+            newFavorites.content.push(req.body.content)
+            await newFavorite.save()
+        }
+    })
 })
 
 //UPDATE TO REMOVE FROM FAVORITES LIST
