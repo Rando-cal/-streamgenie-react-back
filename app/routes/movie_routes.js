@@ -30,9 +30,8 @@ router.get('/movies(/:region)', (req, res, next) => {
     //fetch top 20 most popular movies from API
     fetch(`https://api.themoviedb.org/3/discover/movie?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&watch_region=${req.params.region}`)
         .then(handle404)
-        .then((movies) => {
-            res.status(201.json({ movies: movies.toObject() }))
-        })
+        .then((movies) =>
+            res.status(201).json({ movies: movies.toObject() }))
         .catch(next)
 })
 
@@ -42,8 +41,7 @@ router.get('/movie/:id', (req, res, next) => {
     //fetch specified move using API's title id
     fetch(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=58a92a2a4d225c25e73bb7fe5bfb8183`)
         .then(handle404)
-        .then((movie) => {
-            res.status(201.json({ movie: movie.toObject() }))
-        })
+        .then((movie) =>
+            res.status(201).json({ movie: movie.toObject() }))
         .catch(next)
 })
