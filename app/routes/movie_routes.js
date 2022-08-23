@@ -7,7 +7,7 @@ const passport = require('passport')
 const Favorites = require('../models/favorites')
 
 //api calls
-import { fetchPopularMovies, fetchPopularMoviesByPlatform, fetchMovieById, fetchMovieTitleByPlatform } from '../api'
+const { fetchPopularMovies, fetchPopularMoviesByPlatform, fetchMovieById, } = require('../api')
 
 //error handling methods
 const customErrors = require('../../lib/custom_errors')
