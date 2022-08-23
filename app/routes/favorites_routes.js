@@ -82,3 +82,5 @@ router.patch('/favorites/remove/:id', requireToken, removeBlanks, (req, res, nex
         // if an error occurs, pass it to the handler
         .catch(next)
 })
+
+module.exports = router

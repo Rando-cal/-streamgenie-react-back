@@ -57,3 +57,5 @@ router.get('/movie/:id', (req, res, next) => {
             res.status(201).json({ movie: movie.toObject() }))
         .catch(next)
 })
+
+module.exports = router

@@ -6,6 +6,8 @@ const cors = require('cors')
 // require route files
 const favoritesRoutes = require('./app/routes/favorites_routes')
 const userRoutes = require('./app/routes/user_routes')
+const movieRoutes = require('./app/routes/movie_routes')
+const tvRoutes = require('./app/routes/tv_routes')
 
 // require middleware
 const errorHandler = require('./lib/error_handler')
@@ -65,8 +67,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(requestLogger)
 
 // register route files
-//app.use(favoritesRoutes)
+app.use(favoritesRoutes)
 app.use(userRoutes)
+app.use(movieRoutes)
+app.use(tvRoutes)
 
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
