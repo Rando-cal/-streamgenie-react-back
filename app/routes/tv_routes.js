@@ -7,7 +7,7 @@ const passport = require('passport')
 const Favorites = require('../models/favorites')
 
 //api calls
-import { fetchPopularShows } from '../api'
+import { fetchPopularShows, fetchPopularShowsByPlatform, fetchShowById } from '../api'
 
 //error handling methods
 const customErrors = require('../../lib/custom_errors')
@@ -42,7 +42,7 @@ router.get('/tv(/:region)', (req, res, next) => {
 // GET /tv
 router.get('/tv/:id/:region', (req, res, next) => {
     //fetch top 20 most popular shows from API on specified platform
-    fetch(`https://api.themoviedb.org/3/discover/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&watch_region=${req.params.region}&with_watch_providers=${req.params.id}`)
+    fetchPopularShowsByPlatform(req.params.region, req.params.id)
         .then(handle404)
         .then((shows) =>
             res.status(201).json({ shows: shows.toObject() }))
@@ -53,7 +53,7 @@ router.get('/tv/:id/:region', (req, res, next) => {
 // GET /show/:id
 router.get('/tv/:id', (req, res, next) => {
     //fetch specified show using API's title id
-    fetch(`https://api.themoviedb.org/3/tv/${req.params.id}?api_key=58a92a2a4d225c25e73bb7fe5bfb8183`)
+    fetchShowById(req.paramas.id)
         .then(handle404)
         .then((show) =>
             res.status(201).json({ show: show.toObject() }))
