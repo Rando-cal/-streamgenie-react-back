@@ -33,8 +33,11 @@ router.get('/movies/:region', (req, res, next) => {
     //fetch top 20 most popular movies from API
     fetchPopularMovies(req.params.region)
         .then(handle404)
-        .then((movies) =>
-            res.status(201).json({ movies: movies.toObject() }))
+        .then((movies) => {
+            // console.log(movies.data.results)
+            res.status(201).json({ movies: movies.data.results })
+
+        })
         .catch(next)
 })
 
@@ -45,7 +48,7 @@ router.get('/movies/:region/:id', (req, res, next) => {
     fetchPopularMoviesByPlatform(req.params.region, req.params.id)
         .then(handle404)
         .then((movies) =>
-            res.status(201).json({ movies: movies.toObject() }))
+            res.status(201).json({ movies: movies.data.results }))
         .catch(next)
 })
 
@@ -57,7 +60,7 @@ router.get('/movie/:id', (req, res, next) => {
     fetchMovieById(req.params.id)
         .then(handle404)
         .then((movie) =>
-            res.status(201).json({ movie: movie.toObject() }))
+            res.status(201).json({ movie: movie.data.results }))
         .catch(next)
 })
 
@@ -68,7 +71,7 @@ router.get('/movies/:region/:id/:title', (req, res, next) => {
     fetchMovieTitleByPlatform(req.params.region, req.params.id, req.params.title)
         .then(handle404)
         .then((movies) =>
-            res.status(201).json({ movies: movies.toObject() }))
+            res.status(201).json({ movies: movies.data.results }))
         .catch(next)
 })
 

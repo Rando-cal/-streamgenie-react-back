@@ -33,7 +33,7 @@ router.get('/tv(/:region)', (req, res, next) => {
     fetchPopularShows(req.params.region)
         .then(handle404)
         .then((shows) =>
-            res.status(201).json({ shows: shows.toObject() }))
+            res.status(201).json({ shows: shows.data.results }))
         .catch(next)
 })
 
@@ -44,7 +44,7 @@ router.get('/tv/:id/:region', (req, res, next) => {
     fetchPopularShowsByPlatform(req.params.region, req.params.id)
         .then(handle404)
         .then((shows) =>
-            res.status(201).json({ shows: shows.toObject() }))
+            res.status(201).json({ shows: shows.data.results }))
         .catch(next)
 })
 
@@ -55,7 +55,7 @@ router.get('/tv/:id', (req, res, next) => {
     fetchShowById(req.paramas.id)
         .then(handle404)
         .then((show) =>
-            res.status(201).json({ show: show.toObject() }))
+            res.status(201).json({ show: show.data.results }))
         .catch(next)
 })
 
