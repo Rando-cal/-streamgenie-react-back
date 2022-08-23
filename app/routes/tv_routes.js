@@ -6,6 +6,9 @@ const passport = require('passport')
 //model for favorites
 const Favorites = require('../models/favorites')
 
+//api calls
+import { fetchPopularShows } from '../api'
+
 //error handling methods
 const customErrors = require('../../lib/custom_errors')
 
@@ -28,7 +31,7 @@ const router = express.Router()
 // GET /tv
 router.get('/tv(/:region)', (req, res, next) => {
     //fetch top 20 most popular shows from API
-    fetch(`https://api.themoviedb.org/3/discover/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&watch_region=${req.params.region}`)
+    fetchPopularShows(req.params.region)
         .then(handle404)
         .then((shows) =>
             res.status(201).json({ shows: shows.toObject() }))
