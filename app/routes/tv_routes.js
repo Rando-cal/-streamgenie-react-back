@@ -7,7 +7,7 @@ const passport = require('passport')
 const Favorites = require('../models/favorites')
 
 //api calls
-const { fetchPopularShows, fetchPopularShowsByPlatform, fetchShowById, } = require('../api')
+const { fetchPopularShows, fetchPopularShowsByPlatform, fetchShowById, fetchShowsByTitle } = require('../api')
 //error handling methods
 const customErrors = require('../../lib/custom_errors')
 
@@ -56,6 +56,17 @@ router.get('/tv/:id', (req, res, next) => {
         .then(handle404)
         .then((show) =>
             res.status(201).json({ show: show.data.results }))
+        .catch(next)
+})
+
+//INDEX SEARCH BY  REGION, AND TITLE
+//GET /search/tv/:region/:title
+router.get('/search/tv/:region/:title', (req, res, next) => {
+    //fetch search for title 
+    fetchShowsByTitle(req.params.region, req.params.title)
+        .then(handle404)
+        .then((shows) =>
+            res.status(201).json({ shows: shows.data.results }))
         .catch(next)
 })
 

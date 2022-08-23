@@ -8,7 +8,12 @@ const showMovieUrl = "https://api.themoviedb.org/3/movie/"
 
 const showTvUrl = "https://api.themoviedb.org/3/tv/"
 
+const searchMovieUrl = "https://api.themoviedb.org/3/search/movie?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&query="
+
+const searchTvUrl = "https://api.themoviedb.org/3/search/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&query="
+
 const apiKey = "?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&"
+
 const languageCode = "&language=en-US`"
 
 //FETCH MOST POPULAR BY REGION
@@ -57,4 +62,19 @@ const fetchShowById = (id) => {
     })
 }
 
-module.exports = { fetchPopularMovies, fetchPopularShows, fetchPopularMoviesByPlatform, fetchPopularShowsByPlatform, fetchMovieById, fetchShowById }
+//FETCH BY TITLE
+const fetchMoviesByTitle = (region, title) => {
+    return axios({
+        url: `${searchMovieUrl}${title}&watch_region=${region}`,
+        method: 'GET'
+    })
+}
+
+const fetchShowsByTitle = (region, title) => {
+    return axios({
+        url: `${searchTvUrl}${title}&watch_region=${region}`,
+        method: 'GET'
+    })
+}
+
+module.exports = { fetchPopularMovies, fetchPopularShows, fetchPopularMoviesByPlatform, fetchPopularShowsByPlatform, fetchMovieById, fetchShowById, fetchMoviesByTitle, fetchShowsByTitle }

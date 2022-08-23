@@ -7,7 +7,7 @@ const passport = require('passport')
 const Favorites = require('../models/favorites')
 
 //api calls
-const { fetchPopularMovies, fetchPopularMoviesByPlatform, fetchMovieById, } = require('../api')
+const { fetchPopularMovies, fetchPopularMoviesByPlatform, fetchMovieById, fetchMoviesByTitle } = require('../api')
 
 //error handling methods
 const customErrors = require('../../lib/custom_errors')
@@ -64,11 +64,11 @@ router.get('/movie/:id', (req, res, next) => {
         .catch(next)
 })
 
-//INDEX SEARCH BY PLATFORM, REGION, AND TITLE
-//GET /movies/:region/:id/:title
-router.get('/movies/:region/:id/:title', (req, res, next) => {
-    //fetch search for title and platform
-    fetchMovieTitleByPlatform(req.params.region, req.params.id, req.params.title)
+//INDEX SEARCH BY  REGION, AND TITLE
+//GET /search/movies/:region/:title
+router.get('/search/movies/:region/:title', (req, res, next) => {
+    //fetch search for title 
+    fetchMoviesByTitle(req.params.region, req.params.title)
         .then(handle404)
         .then((movies) =>
             res.status(201).json({ movies: movies.data.results }))
