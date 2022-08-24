@@ -33,6 +33,7 @@ const fetchPopularShows = (region) => {
 }
 
 //FETCH MOST POPULAR BY REGION AND STREAMING PLATFORM
+//URL https://api.themoviedb.org/3/discover/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&watch_region=
 const fetchPopularMoviesByPlatform = (region, platform) => {
     return axios({
         url: `${discoverMovieUrl}&watch_region=${region}&with_watch_providers=${platform}`,
@@ -92,7 +93,7 @@ const fetchMovieProviders = (id, movie) => {
 
 const fetchShowProviders = (id) => {
     return axios({
-        url: `${showTvUrl}${id}/watch/providers?${apiKey}`,
+        url: `${showTvUrl}${id}/watch/providers${apiKey}`,
         method: 'GET'
     })
 }

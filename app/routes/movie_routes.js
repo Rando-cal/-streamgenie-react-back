@@ -64,9 +64,25 @@ router.get('/movie/:id', async (req, res, next) => {
             fetchMovieProviders(req.params.id, movie)
                 .then(handle404)
                 .then((providers) => {
-                    console.log("Providers:", providers.data.results)
-                    console.log("movie:", movie.data)
-                    res.status(201).json({ providers: providers, movie: movie.data })
+                    // console.log("Providers:", providers.data.results)
+                    // console.log("movie:", movie.data)
+                    const returnObject = {
+                        "movie": {},
+                        "providers": providers.data.results
+                    }
+                    returnObject.movie["title"] = movie.data.title
+                    returnObject.movie["apiId"] = movie.data.id
+                    returnObject.movie["genres"] = movie.data.genres
+                    //changing overview field to description to align with our model
+                    returnObject.movie["description"] = movie.data.overview
+                    returnObject.movie["poster_path"] = movie.data.poster_path
+                    returnObject.movie["release_date"] = movie.data.release_date
+                    returnObject.movie["runtime"] = movie.data.runtime
+                    returnObject.movie["tagline"] = movie.data.tagline
+                    returnObject.movie["vote_average"] = movie.data.vote_average
+
+                    console.log('returnobject:', returnObject)
+                    res.status(201).json(returnObject)
                 })
                 .catch(next)
             // console.log("this is movie:", movie)
