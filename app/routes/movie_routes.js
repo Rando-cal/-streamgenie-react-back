@@ -55,19 +55,21 @@ router.get('/movies/:region/:id', (req, res, next) => {
 
 //SHOW
 // GET /movie/:id
-router.get('/movie/:id', (req, res, next) => {
+router.get('/movie/:id', async (req, res, next) => {
     //fetch specified move using API's title id
     console.log("hit the route")
-    fetchMovieById(req.params.id)
+    await fetchMovieById(req.params.id)
         .then(handle404)
         .then((movie) => {
-            fetchMovieProviders(req.params.id)
+            fetchMovieProviders(req.params.id, movie)
                 .then(handle404)
                 .then((providers) => {
-                    console.log("Providers:", providers)
-                    console.log("movie:", movie.data.results)
-                    res.status(201).json({ providers: providers, movie: movie.data.results })
+                    console.log("Providers:", providers.data.results)
+                    console.log("movie:", movie.data)
+                    res.status(201).json({ providers: providers, movie: movie.data })
                 })
+                .catch(next)
+            // console.log("this is movie:", movie)
             // res.status(201).json({ movie: movie.data.results })
 
 

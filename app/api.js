@@ -13,9 +13,9 @@ const searchMovieUrl = "https://api.themoviedb.org/3/search/movie?api_key=58a92a
 
 const searchTvUrl = "https://api.themoviedb.org/3/search/tv?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&query="
 
-const apiKey = "?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&"
+const apiKey = "?api_key=58a92a2a4d225c25e73bb7fe5bfb8183"
 
-const languageCode = "&language=en-US`"
+const languageCode = "&language=en-US"
 
 //FETCH MOST POPULAR BY REGION
 const fetchPopularMovies = (region) => {
@@ -48,6 +48,8 @@ const fetchPopularShowsByPlatform = (region, platform) => {
 }
 
 //FETCH SPECIFIC TITLE BY API SUPPLIED ID
+//EXAMPLE URL https://api.themoviedb.org/3/movie/75780?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US
+//EXAMPLE URL https://api.themoviedb.org/3/movie/75780?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&language=en-US
 const fetchMovieById = (id) => {
     return axios({
         url: `${showMovieUrl}${id}${apiKey}${languageCode}`,
@@ -79,9 +81,11 @@ const fetchShowsByTitle = (region, title) => {
 }
 
 //FETCH WATCH PROVIDERS BY ID
-const fetchMovieProviders = (id) => {
+//EXAMPLE URL
+//EXAMPLE URL https://api.themoviedb.org/3/movie/75780/watch/providers?api_key=58a92a2a4d225c25e73bb7fe5bfb8183
+const fetchMovieProviders = (id, movie) => {
     return axios({
-        url: `${showMovieUrl}${id}/watch/providers?${apiKey}`,
+        url: `${showMovieUrl}${id}/watch/providers${apiKey}`,
         method: 'GET'
     })
 }
