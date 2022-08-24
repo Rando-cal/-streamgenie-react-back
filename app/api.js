@@ -6,6 +6,7 @@ const discoverTvUrl = "https://api.themoviedb.org/3/discover/tv?api_key=58a92a2a
 
 const showMovieUrl = "https://api.themoviedb.org/3/movie/"
 
+
 const showTvUrl = "https://api.themoviedb.org/3/tv/"
 
 const searchMovieUrl = "https://api.themoviedb.org/3/search/movie?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&query="
@@ -77,4 +78,19 @@ const fetchShowsByTitle = (region, title) => {
     })
 }
 
-module.exports = { fetchPopularMovies, fetchPopularShows, fetchPopularMoviesByPlatform, fetchPopularShowsByPlatform, fetchMovieById, fetchShowById, fetchMoviesByTitle, fetchShowsByTitle }
+//FETCH WATCH PROVIDERS BY ID
+const fetchMovieProviders = (id) => {
+    return axios({
+        url: `${showMovieUrl}${id}/watch/providers?${apiKey}`,
+        method: 'GET'
+    })
+}
+
+const fetchShowProviders = (id) => {
+    return axios({
+        url: `${showTvUrl}${id}/watch/providers?${apiKey}`,
+        method: 'GET'
+    })
+}
+
+module.exports = { fetchPopularMovies, fetchPopularShows, fetchPopularMoviesByPlatform, fetchPopularShowsByPlatform, fetchMovieById, fetchShowById, fetchMoviesByTitle, fetchShowsByTitle, fetchMovieProviders, fetchShowProviders }

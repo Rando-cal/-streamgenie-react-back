@@ -7,7 +7,7 @@ const passport = require('passport')
 const Favorites = require('../models/favorites')
 
 //api calls
-const { fetchPopularMovies, fetchPopularMoviesByPlatform, fetchMovieById, fetchMoviesByTitle } = require('../api')
+const { fetchPopularMovies, fetchPopularMoviesByPlatform, fetchMovieById, fetchMoviesByTitle, fetchMovieProviders, fetchShowProviders } = require('../api')
 
 //error handling methods
 const customErrors = require('../../lib/custom_errors')
@@ -34,7 +34,7 @@ router.get('/movies/:region', (req, res, next) => {
     fetchPopularMovies(req.params.region)
         .then(handle404)
         .then((movies) => {
-            // console.log(movies.data.results)
+            //console.log(movies.data.results)
             res.status(201).json({ movies: movies.data.results })
 
         })
@@ -57,10 +57,22 @@ router.get('/movies/:region/:id', (req, res, next) => {
 // GET /movie/:id
 router.get('/movie/:id', (req, res, next) => {
     //fetch specified move using API's title id
+    console.log("hit the route")
     fetchMovieById(req.params.id)
         .then(handle404)
-        .then((movie) =>
-            res.status(201).json({ movie: movie.data.results }))
+        .then((movie) => {
+            fetchMovieProviders(req.params.id)
+                .then(handle404)
+                .then((providers) => {
+                    console.log("Providers:", providers)
+                    console.log("movie:", movie.data.results)
+                    res.status(201).json({ providers: providers, movie: movie.data.results })
+                })
+            // res.status(201).json({ movie: movie.data.results })
+
+
+        }
+        )
         .catch(next)
 })
 
@@ -74,5 +86,7 @@ router.get('/search/movies/:region/:title', (req, res, next) => {
             res.status(201).json({ movies: movies.data.results }))
         .catch(next)
 })
+
+
 
 module.exports = router
