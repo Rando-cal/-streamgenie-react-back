@@ -6,13 +6,15 @@ const favoritesSchema = new mongoose.Schema(
             {
                 contentId: Number,
                 title: String,
-                img: String,
-                year: Number,
-                rating: Number,
-                description: String,
+                poster_path: String,
+                release_date: String,
+                vote_average: Number,
+                overview: String,
                 tagline: String,
                 genre: [String],
                 runtime: Number,
+                number_of_seasons: Number,
+                type: String
 
             }
         ],

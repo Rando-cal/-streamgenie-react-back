@@ -66,15 +66,17 @@ router.get('/show/:id', async (req, res, next) => {
                         "providers": providers.data.results
                     }
                     returnObject.show["title"] = show.data.name
-                    returnObject.show["apiId"] = show.data.id
+                    returnObject.show["contentId"] = show.data.id
                     returnObject.show["genres"] = show.data.genres
                     //changing overview field to description to align with our model
-                    returnObject.show["description"] = show.data.overview
+                    returnObject.show["overview"] = show.data.overview
                     returnObject.show["poster_path"] = show.data.poster_path
                     returnObject.show["release_date"] = show.data.first_air_date
-                    returnObject.show["seasons"] = show.data.number_of_seasons
+                    returnObject.show["number_of_seasons"] = show.data.number_of_seasons
                     returnObject.show["tagline"] = show.data.tagline
                     returnObject.show["vote_average"] = show.data.vote_average
+                    returnObject.show["type"] = "tv"
+
 
                     console.log('returnobject:', returnObject)
                     res.status(201).json(returnObject)

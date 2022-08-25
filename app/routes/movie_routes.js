@@ -71,15 +71,15 @@ router.get('/movie/:id', async (req, res, next) => {
                         "providers": providers.data.results
                     }
                     returnObject.movie["title"] = movie.data.title
-                    returnObject.movie["apiId"] = movie.data.id
+                    returnObject.movie["contentId"] = movie.data.id
                     returnObject.movie["genres"] = movie.data.genres
-                    //changing overview field to description to align with our model
-                    returnObject.movie["description"] = movie.data.overview
+                    returnObject.movie["overview"] = movie.data.overview
                     returnObject.movie["poster_path"] = movie.data.poster_path
                     returnObject.movie["release_date"] = movie.data.release_date
                     returnObject.movie["runtime"] = movie.data.runtime
                     returnObject.movie["tagline"] = movie.data.tagline
                     returnObject.movie["vote_average"] = movie.data.vote_average
+                    returnObject.movie["type"] = "movie"
 
                     console.log('returnobject:', returnObject)
                     res.status(201).json(returnObject)
