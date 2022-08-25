@@ -37,7 +37,7 @@ router.get('/favorites', requireToken, (req, res, next) => {
         .catch(next)
 })
 
-//CREATE A FAVORITES LIST UPON SIGNUP
+//CREATE MAY NOT USE. INSTEAD WILL CREATE NEW LIST WHEN ADDING TO LIST FOR FIRST TIME
 //CREATE
 //POST /favorites
 router.post('/favorites', requireToken, (req, res, next) => {
@@ -59,17 +59,34 @@ router.post('/favorites', requireToken, (req, res, next) => {
 
 //UPDATE TO ADD TO FAVORITES
 // PATCH /favorites/:id
-router.patch('/favorites/add', requireToken, (req, res, next) => {
-    Favorites.findOne({ owner: req.user.id })
-        .then(handle404)
-        .then((favorites) => {
-            favorites.content.push(req.body.content)
-            favorites.save
+// router.patch('/favorites/add', requireToken, (req, res, next) => {
+//     Favorites.findOne({ owner: req.user.id })
+//         .then(handle404)
+//         .then((favorites) => {
+//             favorites.content.push(req.body.content)
+//             favorites.save
 
-        })
-        .then(() => res.sendStatus(204))
-        .catch(next)
+//         })
+//         .then(() => res.sendStatus(204))
+//         .catch(next)
+// })
+router.post('/carts/add', requireToken, async (req, res, nexcart) => {
+    Favorites.findOne({ owner: req.user.id }, async function (error, favorites) {
+        if (favorites) {
+            favorites.content.push(req.body.content)
+            await favorites.save()
+            console.log(favorites)
+        } else {
+            const newFavorites = new Favorites()
+            newFavorites.owner = req.user.id
+            newFavorites.content.push(req.body.content)
+            await newFavorites.save()
+            console.log(favorites)
+        }
+    })
+
 })
+
 
 //UPDATE TO REMOVE FROM FAVORITES LIST
 router.patch('/favorites/remove/:id', requireToken, removeBlanks, (req, res, next) => {
