@@ -7,12 +7,14 @@ const favoritesSchema = new mongoose.Schema(
                 contentId: Number,
                 title: String,
                 img: String,
-                year: Number,
+                release_date: String,
                 rating: Number,
                 description: String,
                 tagline: String,
                 genre: [String],
                 runtime: Number,
+                number_of_seasons: Number,
+                type: String
 
             }
         ],
