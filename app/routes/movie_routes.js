@@ -70,15 +70,15 @@ router.get('/movie/:id', async (req, res, next) => {
                         "movie": {},
                         "providers": providers.data.results
                     }
-                    returnObject.movie["title"] = movie.data.title
                     returnObject.movie["contentId"] = movie.data.id
-                    returnObject.movie["genres"] = movie.data.genres
-                    returnObject.movie["overview"] = movie.data.overview
+                    returnObject.movie["title"] = movie.data.title
                     returnObject.movie["poster_path"] = movie.data.poster_path
                     returnObject.movie["release_date"] = movie.data.release_date
-                    returnObject.movie["runtime"] = movie.data.runtime
-                    returnObject.movie["tagline"] = movie.data.tagline
                     returnObject.movie["vote_average"] = movie.data.vote_average
+                    returnObject.movie["overview"] = movie.data.overview
+                    returnObject.movie["tagline"] = movie.data.tagline
+                    returnObject.movie["genres"] = movie.data.genres
+                    returnObject.movie["runtime"] = movie.data.runtime
                     returnObject.movie["type"] = "movie"
 
                     console.log('returnobject:', returnObject)

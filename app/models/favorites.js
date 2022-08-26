@@ -11,7 +11,7 @@ const favoritesSchema = new mongoose.Schema(
                 vote_average: Number,
                 overview: String,
                 tagline: String,
-                genre: [String],
+                genre: [{}],
                 runtime: Number,
                 number_of_seasons: Number,
                 type: String
@@ -19,12 +19,14 @@ const favoritesSchema = new mongoose.Schema(
             }
         ],
         owner: {
-            type: mongoose.Schema.Types.ObjectId,
+            $type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
         }
     },
+
     {
+        typeKey: '$type',
         timestamps: true
     }
 )
