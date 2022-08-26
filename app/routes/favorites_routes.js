@@ -32,7 +32,7 @@ router.get('/favorites', requireToken, (req, res, next) => {
     Favorites.findOne({ owner: req.user.id })
         .then(handle404)
         // // if `findById` is succesful, respond with 200 and "cart" JSON
-        .then((favorites) => res.status(200).json({ favorites: favorites.toObject() }))
+        .then((favorites) => res.status(200).json({ favorites: favorites.content.toObject() }))
         // // if an error occurs, pass it to the handler
         .catch(next)
 })
@@ -74,17 +74,28 @@ router.post('/favorites/add', requireToken, async (req, res, nexcart) => {
     Favorites.findOne({ owner: req.user.id }, async function (error, favorites) {
         if (favorites) {
             // favorites.content.push(req.body.content)
-            favorites.content.title = req.body.content.title
+            favorites.content.push(req.body.content)
+            // favorites.content.title = req.body.content.title
+            // favorites.content.poster_path = req.body.content.poster_path
+            // favorites.content.release_date = req.body.content.release_date
+            // favorites.content.vote_average = req.body.content.vote_average
+            // favorites.content.overview = req.body.content.overview
+            // favorites.content.tagline = req.body.content.tagline
+            // favorites.content.genres = req.body.content.genres
+            // favorites.content.runtime = req.body.content.runtime
+            // favorites.content.type = req.body.content.type
             await favorites.save()
-            console.log(favorites)
+            console.log("movie:", req.body.content)
+            console.log("added to existing favorites list", favorites)
+            console.log('favorites.content:', favorites.content)
         } else {
             const newFavorites = new Favorites()
             newFavorites.owner = req.user.id
-            newFavorites.content.title = req.body.content.title
-
-            // newFavorites.content.push(req.body.content)
+            newFavorites.content.push(req.body.content)
             await newFavorites.save()
-            console.log(favorites)
+            console.log("movie:", req.body.content)
+            console.log("create new favorites list :", newFavorites)
+            console.log('newfavorites.content:', newFavorites.content)
         }
     })
 
