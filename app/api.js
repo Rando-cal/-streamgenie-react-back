@@ -67,6 +67,9 @@ const fetchShowById = (id) => {
 }
 
 //FETCH BY TITLE
+//example URL https://api.themoviedb.org/3/search/movie?api_key=58a92a2a4d225c25e73bb7fe5bfb8183&query=jaws&watch_region=US
+
+
 const fetchMoviesByTitle = (region, title) => {
     return axios({
         url: `${searchMovieUrl}${title}&watch_region=${region}`,

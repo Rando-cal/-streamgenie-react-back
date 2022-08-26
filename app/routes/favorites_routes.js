@@ -70,16 +70,19 @@ router.post('/favorites', requireToken, (req, res, next) => {
 //         .then(() => res.sendStatus(204))
 //         .catch(next)
 // })
-router.post('/carts/add', requireToken, async (req, res, nexcart) => {
+router.post('/favorites/add', requireToken, async (req, res, nexcart) => {
     Favorites.findOne({ owner: req.user.id }, async function (error, favorites) {
         if (favorites) {
-            favorites.content.push(req.body.content)
+            // favorites.content.push(req.body.content)
+            favorites.content.title = req.body.content.title
             await favorites.save()
             console.log(favorites)
         } else {
             const newFavorites = new Favorites()
             newFavorites.owner = req.user.id
-            newFavorites.content.push(req.body.content)
+            newFavorites.content.title = req.body.content.title
+
+            // newFavorites.content.push(req.body.content)
             await newFavorites.save()
             console.log(favorites)
         }
