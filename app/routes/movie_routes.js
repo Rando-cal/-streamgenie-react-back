@@ -64,11 +64,11 @@ router.get('/movie/:id', async (req, res, next) => {
             fetchMovieProviders(req.params.id, movie)
                 .then(handle404)
                 .then((providers) => {
-                    // console.log("Providers:", providers.data.results)
-                    // console.log("movie:", movie.data)
+                    console.log("Providers:", providers.data.results)
+                    console.log("movie:", movie.data)
                     const returnObject = {
                         "movie": {},
-                        "providers": providers.data.results.US
+                        "providers": providers.data.results.US.flatrate
                     }
                     returnObject.movie["contentId"] = movie.data.id
                     returnObject.movie["title"] = movie.data.title
