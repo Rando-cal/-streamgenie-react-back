@@ -6,6 +6,9 @@ const passport = require('passport')
 // bcrypt docs: https://github.com/kelektiv/node.bcrypt.js
 const bcrypt = require('bcrypt')
 
+//model for favorites
+const Favorites = require('../models/favorites')
+
 // see above for explanation of "salting", 10 rounds is recommended
 const bcryptSaltRounds = 10
 
@@ -56,7 +59,14 @@ router.post('/sign-up', (req, res, next) => {
 		.then((user) => User.create(user))
 		// send the new user object back with status 201, but `hashedPassword`
 		// won't be send because of the `transform` in the User model
-		.then((user) => res.status(201).json({ user: user.toObject() }))
+		.then((user) => {
+			console.log("user:", user)
+			const newFavorites = new Favorites()
+			newFavorites.owner = user.id
+			newFavorites.save()
+			res.status(201).json({ user: user.toObject() })
+		})
+
 		// pass any errors along to the error handler
 		.catch(next)
 })
