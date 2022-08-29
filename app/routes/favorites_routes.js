@@ -106,7 +106,7 @@ router.post('/favorites/add', requireToken, async (req, res, nexcart) => {
 router.patch('/favorites/remove/:id', requireToken, removeBlanks, (req, res, next) => {
     // delete req.body.cart.owner
 
-    Favorites.findOneAndUpdate({ owner: req.user.id }, { "$pull": { "content": { "_id": req.params.id } } })
+    Favorites.findOneAndUpdate({ owner: req.user.id }, { "$pull": { "content": { "contentId": req.params.id } } })
         .then(handle404)
         // if that succeeded, return 204 and no JSON
         .then(() => res.sendStatus(204))
