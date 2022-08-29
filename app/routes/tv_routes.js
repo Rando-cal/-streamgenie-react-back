@@ -63,7 +63,11 @@ router.get('/show/:id', async (req, res, next) => {
                     // console.log("movie:", movie.data)
                     const returnObject = {
                         "show": {},
-                        "providers": providers.data.results
+                        "providers": providers.data.results.US.flatrate
+                            ?
+                            providers.data.results.US.flatrate
+                            :
+                            []
                     }
                     returnObject.show["contentId"] = show.data.id
                     returnObject.show["title"] = show.data.name
