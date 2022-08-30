@@ -78,7 +78,7 @@ router.get('/show/:id', async (req, res, next) => {
                     returnObject.show["tagline"] = show.data.tagline
                     returnObject.show["genres"] = show.data.genres
                     returnObject.show["number_of_seasons"] = show.data.number_of_seasons
-                    returnObject.show["type"] = "tv"
+                    returnObject.show["type"] = "show"
                     console.log('returnobject:', returnObject)
                     res.status(201).json(returnObject)
                 })
