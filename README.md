@@ -1,6 +1,6 @@
 ## About
 
-    A backend for the client [StreamGenie](https://github.com/Rando-cal/streamgenie-frontend) that handles fetching data from the third-party API [TMDb](https://developers.themoviedb.org/3/getting-started/introduction) to populate user searches and favorite list.
+A backend for the client [StreamGenie](https://github.com/Rando-cal/streamgenie-frontend) that handles fetching data from the third-party API [TMDb](https://developers.themoviedb.org/3/getting-started/introduction) to populate user searches and favorite list.
 
 Client Repository: https://github.com/Rando-cal/streamgenie-react-front
 
