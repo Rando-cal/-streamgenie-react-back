@@ -49,9 +49,13 @@ Christian Brewer - Backend API
 | POST   | `/favorites`  | `favoritesList#create`  |
 | PATCH  | `/favorites/:id` | `favoritesList#update`  |
 | GET   | `/favorites`  | `get#favoritesList`  |
+| GET   | `/movies/:region`  | `get#movies`  |
+| GET   | `/movies/:region/:id`  | `get#movies by platform id`  |
+| GET   | `/search/movies/:region/:title`  | `get#movies by title search`  |
+| GET   | `/tv/:region`  | `get#tv`  |
+| GET   | `/tv/:region/:id`  | `get#tv by platform id`  |
+| GET   | `/search/tv/:region/:title`  | `get#tv by title search`  |
 
-### Content
-| GET   | `/content`  | `get#content`  | this route will fetch data from the third-party API and send the JSON data to the front-end
 
 
 
